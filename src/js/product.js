@@ -1,23 +1,39 @@
+import ProductData from "./productData.js"
+import { getParam } from "./utils.js";
+import productDetails from "./productDetails.js";
+
+const dataSource = new ProductData('tents');
+console.log(dataSource.getData());
+
+const productId = getParam('product');
+
+// console.log(dataSource.findProductById(productId));
+
+const product = new productDetails(productId, dataSource);
+console.log(product)
+product.init()
+
 let products = [];
+
 function convertToJson(res) {
-  if (res.ok) {
-    return res.json();
-  } else {
-    throw new Error("Bad Response");
-  }
+    if (res.ok) {
+        return res.json();
+    } else {
+        throw new Error("Bad Response");
+    }
 }
 
 function setLocalStorage(key, data) {
-  localStorage.setItem(key, JSON.stringify(data));
+    localStorage.setItem(key, JSON.stringify(data));
 }
 
 // get tents data
 function getProductsData() {
-  fetch("../json/tents.json")
-    .then(convertToJson)
-    .then((data) => {
-      products = data;
-    });
+    fetch("../json/tents.json")
+        .then(convertToJson)
+        .then((data) => {
+            products = data;
+        });
 }
 // or should we do it this way?
 // async function getProductsDataAwait() {
@@ -26,8 +42,8 @@ function getProductsData() {
 
 // add to cart button event handler
 function addToCart(e) {
-  const product = products.find((item) => item.Id === e.target.dataset.id);
-  setLocalStorage("so-cart", product);
+    const product = products.find((item) => item.Id === e.target.dataset.id);
+    setLocalStorage("so-cart", product);
 }
 
 getProductsData();
