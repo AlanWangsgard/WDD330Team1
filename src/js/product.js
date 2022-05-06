@@ -7,12 +7,11 @@ console.log(dataSource.getData());
 
 const productId = getParam('product');
 
-console.log(dataSource.findProductById(productId));
+// console.log(dataSource.findProductById(productId));
 
 const product = new productDetails(productId, dataSource);
 console.log(product)
-product.init();
-
+product.init()
 
 let products = [];
 
