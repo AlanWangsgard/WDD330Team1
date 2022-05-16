@@ -1,12 +1,16 @@
+import { setLocalStorage } from "./utils.js";
+import { getLocalStorage } from "./utils.js";
 export default class productDetails {
 
     constructor(productId, dataSource) {
         this.productId = productId;
         this.product = {};
+        this.products = [];
         this.dataSource = dataSource;
     }
     async init() {
         // use our datasource to get the details for the current product. findProductById will return a promise! use await or .then() to process it
+        // console.log(this.dataSource.findProductById(this.productId))
         this.product = await this.dataSource.findProductById(this.productId);
         document.querySelector("main").innerHTML = this.renderProductDetails()
             // once we have the product details we can render out the HTML
@@ -17,8 +21,14 @@ export default class productDetails {
     }
 
     addToCart(e) {
-        const data = this.product.find((item) => item.Id === e.target.dataset.id);
-        setLocalStorage("so-cart", product);
+        // console.log("yeet", this.product)
+        // console.log()
+        if (getLocalStorage("so-cart") != null) {
+            this.products = getLocalStorage("so-cart")
+        }
+        this.products.push(this.product)
+            // const data = this.product.getData().find((item) => item.Id === e.target.dataset.id);
+        setLocalStorage("so-cart", this.products);
     }
 
     renderProductDetails() {
