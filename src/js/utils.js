@@ -33,3 +33,20 @@ export function renderListWithTemplate(template, parent, list, callback) {
         parent.appendChild(templateWithData);
     })
 }
+
+export async function loadTemplate(path) {
+    const html = await fetch(path).then.text();
+    const template = document.createElement('template');
+    template.innerHTML = html;
+    return template;
+}
+
+export async function loadHeaderFooter() {
+    const header = await loadTemplate("./partials/header.html");
+    const footer = await loadTemplate("./partials/footer.html");
+    const headerElement = document.getElementById("main-header");
+    const footerElement = document.getElementById("main-footer");
+    
+    renderListWithTemplate(header, headerElement);
+    renderListWithTemplate(footer, footerElement);
+}
