@@ -26,7 +26,6 @@ export default class productDetails {
         if (getLocalStorage("so-cart") != null) {
             this.products = getLocalStorage("so-cart")
         }
-        console.log(typeof this.products)
         this.products.push(this.product)
             // const data = this.product.getData().find((item) => item.Id === e.target.dataset.id);
         setLocalStorage("so-cart", this.products);
