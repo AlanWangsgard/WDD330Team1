@@ -1,17 +1,38 @@
 function getLocalStorage(key) {
-    return JSON.parse(localStorage.getItem(key));
+  return JSON.parse(localStorage.getItem(key));
 }
 
 function getCartContents() {
-    let markup = '';
-    const cartItems = getLocalStorage('so-cart');
-    const htmlItems = cartItems.map((item) => renderCartItem(item));
-    document.querySelector('.product-list').innerHTML = htmlItems.join('');
-    // document.querySelector(".product-list").innerHTML = renderCartItem(cartItems);
+  let markup = "";
+  const cartItems = getLocalStorage("so-cart");
+  const htmlItems = cartItems.map((item) => renderCartItem(item));
+  document.querySelector(".product-list").innerHTML = htmlItems.join("");
+  // document.querySelector(".product-list").innerHTML = renderCartItem(cartItems);
+}
+
+function displayTotal() {
+  const cartItems = getLocalStorage("so-cart");
+  let cartTotal = 0;
+
+  if (cartItems !== null) {
+    for (let cartItem of cartItems) {
+      cartTotal += cartItem.FinalPrice;
+      console.log(cartTotal);
+    }
+
+    let cartHtml = `$${cartTotal}`;
+    document.querySelector(".cart-total").innerHTML += cartHtml;
+    document.querySelector(".cart-footer").style.display = "inline";
+  }
+  else {
+    document.querySelector(".cart-footer").style.display = "none";
+  }
+
+  return cartTotal;
 }
 
 function renderCartItem(item) {
-    const newItem = `<li class="cart-card divider">
+  const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
       src="${item.Image}"
@@ -25,10 +46,11 @@ function renderCartItem(item) {
   <p class="cart-card__quantity">qty: 1</p>
   <p class="cart-card__price">$${item.FinalPrice}</p>
 </li>`;
-    console.log(newItem);
-    return newItem;
+  console.log(newItem);
+  return newItem;
 }
 
 if (getLocalStorage("so-cart") != null) {
-    getCartContents();
+  getCartContents();
+  displayTotal();
 }
