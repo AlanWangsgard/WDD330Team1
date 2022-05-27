@@ -1,5 +1,6 @@
 import { setLocalStorage } from "./utils.js";
 import { getLocalStorage } from "./utils.js";
+import { animateCart } from "./utils.js";
 export default class productDetails {
 
     constructor(productId, dataSource) {
@@ -30,6 +31,7 @@ export default class productDetails {
         this.products.push(this.product)
             // const data = this.product.getData().find((item) => item.Id === e.target.dataset.id);
         setLocalStorage("so-cart", this.products);
+        animateCart();
     }
 
     renderProductDetails() {
