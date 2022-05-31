@@ -70,3 +70,10 @@ export async function loadHeaderFooter() {
     renderWithTemplate(header, headerElement);
     renderWithTemplate(footer, footerElement);
 }
+
+export function animateCart() {
+    var cart = document.querySelector(".cart");
+
+    cart.addClass('shake');
+    
+}

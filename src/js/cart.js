@@ -1,7 +1,7 @@
 import { setLocalStorage } from "../js/utils";
 
 function getLocalStorage(key) {
-    return JSON.parse(localStorage.getItem(key));
+  return JSON.parse(localStorage.getItem(key));
 }
 
 function getCartContents() {
@@ -13,8 +13,38 @@ function getCartContents() {
     // document.querySelector(".product-list").innerHTML = renderCartItem(cartItems);
 }
 
-function renderCartItem(item, i) {
-    const newItem = `<li class="cart-card divider">
+// function renderCartItem(item, i) {
+//     const newItem = `<li class="cart-card divider">
+  let markup = "";
+  const cartItems = getLocalStorage("so-cart");
+  const htmlItems = cartItems.map((item) => renderCartItem(item));
+  document.querySelector(".product-list").innerHTML = htmlItems.join("");
+  // document.querySelector(".product-list").innerHTML = renderCartItem(cartItems);
+}
+
+function displayTotal() {
+  const cartItems = getLocalStorage("so-cart");
+  let cartTotal = 0;
+
+  if (cartItems !== null) {
+    for (let cartItem of cartItems) {
+      cartTotal += cartItem.FinalPrice;
+      console.log(cartTotal);
+    }
+
+    let cartHtml = `$${cartTotal}`;
+    document.querySelector(".cart-total").innerHTML += cartHtml;
+    document.querySelector(".cart-footer").style.display = "inline";
+  }
+  else {
+    document.querySelector(".cart-footer").style.display = "none";
+  }
+
+  return cartTotal;
+}
+
+function renderCartItem(item) {
+  const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
       src="${item.Image}"
@@ -29,8 +59,9 @@ function renderCartItem(item, i) {
   <p class="cart-card__price">$${item.FinalPrice}</p>
   <button id='removeFromCart' type='button' value=${item.Id}>Delete</delete>
 </li>`;
-    // console.log(newItem);
-    return newItem;
+
+  console.log(newItem);
+  return newItem;
 }
 
 function removeFromCart(id) {
@@ -65,8 +96,6 @@ function addlisteners() {
     var elements = document.querySelectorAll("#removeFromCart")
     elements.forEach(element => element.addEventListener("click", function() { removeFromCart(element.value) }));
 }
+  displayTotal();
+}
 
-addlisteners()
-    // if (document.getElementById("removeFromCart")) {
-    //     document.getElementById("removeFromCart").addEventListener("click", removeFromCart(value))
-    // }
