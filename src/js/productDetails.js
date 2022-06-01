@@ -83,6 +83,16 @@ export default class ProductDetails {
         cartContents.push(this.product);
         setLocalStorage('so-cart', cartContents);
     }
+
+    calculateDiscount() {
+        let discountPercentage = 0;
+        let priceDifference = 0;
+
+        priceDifference = this.product.SuggestedRetailPrice - this.product.FinalPrice;
+        discountPercentage = (priceDifference / this.product.SuggestedRetailPrice) * 100;
+        return Math.round(discountPercentage);
+    }
+
     renderProductDetails() {
         return `<section class="product-detail"> <h3>${this.product.Brand.Name}</h3>
     <h2 class="divider">${this.product.NameWithoutBrand}</h2>
@@ -91,7 +101,8 @@ export default class ProductDetails {
       src="${this.product.Images.PrimaryLarge}"
       alt="${this.product.NameWithoutBrand}"
     />
-    <p class="product-card__price">$${this.product.FinalPrice}</p>
+    <p class="product-card__price">$${this.product.SuggestedRetailPrice}</p>
+    <p class="product-card__discount">$${this.product.FinalPrice} (${this.calculateDiscount()}% off!)</p>
     <p class="product__color">${this.product.Colors[0].ColorName}</p>
     <p class="product__description">
     ${this.product.DescriptionHtmlSimple}
