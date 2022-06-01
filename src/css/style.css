@@ -227,6 +227,14 @@ button {
     text-align: left;
 }
 
+.product-card__price {
+    text-decoration: line-through;
+}
+
+.product-card__discount {
+    color: red;
+}
+
 .card__brand {
     font-size: var(--small-font);
 }
