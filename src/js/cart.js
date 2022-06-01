@@ -33,7 +33,7 @@ function displayTotal() {
         }
 
         let cartHtml = `$${cartTotal}`;
-        document.querySelector(".cart-total").innerHTML += cartHtml;
+        document.querySelector(".cart-total").innerHTML = cartHtml;
         document.querySelector(".cart-footer").style.display = "inline";
     } else {
         document.querySelector(".cart-footer").style.display = "none";
