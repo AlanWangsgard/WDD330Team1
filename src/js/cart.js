@@ -32,8 +32,8 @@ function displayTotal() {
             console.log(cartTotal);
         }
 
-        let cartHtml = `$${cartTotal}`;
-        document.querySelector(".cart-total").innerHTML += cartHtml;
+        let cartHtml = `$${cartTotal.toFixed(2)}`;
+        document.querySelector(".cart-total").innerHTML = cartHtml;
         document.querySelector(".cart-footer").style.display = "inline";
     } else {
         document.querySelector(".cart-footer").style.display = "none";
