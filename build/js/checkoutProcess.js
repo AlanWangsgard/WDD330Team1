@@ -1,0 +1,1 @@
+export default class a{constructor(t,s){this.key=t,this.outputSelector=s,this.list=[],this.itemTotal=0,this.shipping=0,this.tax=0,this.orderTotal=0}init(){this.list=getLocalStorage(this.key),this.calculateItemSummary()}calculateItemSummary(){}calculateOrdertotal(){this.displayOrderTotals()}displayOrderTotals(){}}

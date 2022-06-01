@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sleep Outside | Checkout</title>
     <link rel="stylesheet" href="../css/style.css" />
-  </head>
-  <body>
+    <script type="module" src="../js/checkoutProcess.js"></script>
+</head>
+
+<body>
     <header class="divider">
-      <div class="logo">
-        <img src="../images/noun_Tent_2517.svg" alt="tent image for logo" />
-        <a href="../index.html"> Sleep<span class="highlight">Outside</span></a>
-      </div>
-      <div class="cart">
-        <a href="../cart/index.html">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+        <div class="logo">
+            <img src="../images/noun_Tent_2517.svg" alt="tent image for logo" />
+            <a href="../index.html"> Sleep<span class="highlight">Outside</span></a>
+        </div>
+        <div class="cart">
+            <a href="../cart/index.html">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
             <path
               d="M18.9 32.6c1.1 2.4 2.5 3.3 5.4 3.3 1.6 0 3.6-0.3 5.9-0.6 3.2-0.5 6.9-1 11.2-1 2.1 0 4.3 0.1 6.4 0.3 2.1 0.1 4.2 0.3 6.1 0.3 3.2 0 5.2-0.4 5.9-1.2 2.7-2.7 2.8-8.8 2.9-14.6 0.1-6.7 0.2-14.5 4.6-18.7 -0.5 0-1 0-1.6 0 -14.2 0-37.5 0-41.1 0C15.6 6.2 14.9 23.6 18.9 32.6z"
             />
@@ -37,14 +40,67 @@
             <!-- <text x="0" y="115" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">Created by Natalia Woodroffe</text>
             <text x="0" y="120" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">from the Noun Project</text> -->
           </svg>
-        </a>
-      </div>
+            </a>
+        </div>
     </header>
     <main class="divider">
-      <section class="products">
-        <h2>Review & Place your Order</h2>
-      </section>
+        <section class="products">
+            <h2>Review & Place your Order</h2>
+        </section>
+        <form class="checkout-form">
+            <div>
+                <p>Shipping</p>
+                <label for="first-name">First Name</label>
+                <br>
+                <input type="text" name="first-name">
+                <br>
+                <label for="last-name">Last Name</label>
+                <br>
+                <input type="text" name="last-name">
+                <br>
+                <label for="street">Street</label>
+                <br>
+                <input type="text" name="street">
+                <br>
+                <label for="city">City</label>
+                <br>
+                <input type="text" name="city">
+                <br>
+                <label for="state">State</label>
+                <br>
+                <input type="text" name="state">
+                <br>
+                <label for="zip">Zip</label>
+                <br>
+                <input type="text" name="zip">
+            </div>
+            <div>
+                <p>Payment</p>
+                <label for="creditcard">CreditCard Number</label>
+                <br>
+                <input type="text" name="creditcard">
+                <br>
+                <label for="expiration-date">Expiration Date</label>
+                <br>
+                <input type="text" name="expiration-date">
+                <br>
+                <label for="security-code">Security Code</label>
+                <br>
+                <input type="text" name="security-code">
+            </div>
+            <div>
+                <p>Summary</p>
+                <p>Subtotal<span class="subtotal"></span></p>
+                <p>Shipping Estimate<span class="shipping"></span></p>
+                <p>Tax<span class="tax"></span></p>
+                <p>Order Total<span class="total"></span></p>
+            </div>
+            <div>
+                <button id="checkoutbutton" type="button" name="submit">submit</button>
+            </div>
+        </form>
     </main>
     <footer>&copy;NOT a real business</footer>
-  </body>
+</body>
+
 </html>
