@@ -1,19 +1,10 @@
-/* Skip to content Search or jump to… Pull requests Issues Marketplace Explore @AlanWangsgard matkat99 / sleepoutside Public template Code Issues Pull requests 2 Actions Projects Wiki Security Insights sleepoutside/src/css/style.css @matkat99 matkat99 initial team 5 Latest commit b218446 on Jan 12,
-2021 History 1 contributor 258 lines (238 sloc) 4.05 KB:root {
-    --font-body: Arial, Helvetica, sans-serif;
-    --font-headline: Haettenschweiler, "Arial Narrow Bold", sans-serif; */
-
-
-/* colors */
-
-
-/* --primary-color: #f0a868; */
-
-
-/* --secondary-color: #525b0f;
+:root {
+    --primary-color: #f0a868;
+    --secondary-color: #525b0f;
     --tertiary-color: #a4b8c4;
     --light-grey: #d0d0d0;
-    --dark-grey: #303030; */
+    --dark-grey: #303030;
+}
 
 
 /* sizes */
@@ -81,7 +72,7 @@ header {
     height: 80px;
     flex-direction: column;
     align-items: flex-end;
-    box-shadow: 1px 1px 4px var(--light-grey);
+    box-shadow: 1px 1px 4px var(--dark-grey);
     justify-content: center;
     align-items: center;
     line-height: 1;
@@ -288,12 +279,12 @@ button {
     grid-column: 3;
 }
 
-.cart-footer { 
-  display: none;
+.cart-footer {
+    display: none;
 }
 
 .cart-total {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 @media screen and (min-width: 500px) {
