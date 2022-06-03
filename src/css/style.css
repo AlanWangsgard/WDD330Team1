@@ -237,6 +237,9 @@ button {
 
 .product-detail img {
     width: 100%;
+    margin-left: 30%;
+    max-height: 200px;
+    max-width: 200px;
 }
 
 
@@ -307,21 +310,48 @@ footer {
 }
 
 .shake {
-    animation: shakeCart .4s ease-in-out forwards;
+    animation: shakeCart 1s ease-in-out forwards;
 }
 
 @keyframes shakeCart {
-    25% {
-      transform:translateX(6px)
+    20% {
+        transform: translateX(5px)
+    }
+    30% {
+        transform: translateX(-5px)
+    }
+    40% {
+        transform: translateX(5px);
     }
     50% {
-      transform:translateX(-4px);
+        transform: translateX(-5px)
     }
-    75% {
-      transform:translateX(2px);
+    60% {
+        transform: translateX(7px);
+    }
+    70% {
+        transform: translateX(-7px)
+    }
+    80% {
+        transform: translateX(7px);
+    }
+    90% {
+        transform: translateX(-7px)
+    }
+    92% {
+        transform: translateX(5px)
+    }
+    94% {
+        transform: translateX(-5px)
+    }
+    96% {
+        transform: translateX(5px)
+    }
+    98% {
+        transform: translateX(-5px)
     }
     100% {
-      transform:translateX(0);
+        transform: translateX(0);
     }
 }
 
