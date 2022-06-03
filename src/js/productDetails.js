@@ -82,6 +82,11 @@ export default class ProductDetails {
         // then add the current product to the list
         cartContents.push(this.product);
         setLocalStorage('so-cart', cartContents);
+        var cart = document.querySelector(".cart");
+        cart.classList.toggle("shake")
+        setTimeout(function() {
+            cart.classList.toggle("shake")
+        }, 5000)
     }
     renderProductDetails() {
         return `<section class="product-detail"> <h3>${this.product.Brand.Name}</h3>
