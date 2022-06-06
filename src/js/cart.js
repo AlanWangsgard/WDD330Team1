@@ -1,4 +1,4 @@
-import { setLocalStorage } from "../js/utils";
+import { setLocalStorage, cartIconValue } from "../js/utils";
 
 function getLocalStorage(key) {
     return JSON.parse(localStorage.getItem(key));
@@ -29,7 +29,7 @@ function displayTotal() {
     if (cartItems !== null) {
         for (let cartItem of cartItems) {
             cartTotal += cartItem.FinalPrice;
-            console.log(cartTotal);
+            // console.log(cartTotal);
         }
 
         let cartHtml = `$${cartTotal.toFixed(2)}`;
@@ -59,13 +59,13 @@ function renderCartItem(item) {
   <button id='removeFromCart' type='button' value=${item.Id}>Delete</delete>
 </li>`;
 
-    console.log(newItem);
+    // console.log(newItem);
     return newItem;
 }
 
 function removeFromCart(id) {
-    console.log(id)
-        // to fix the cart we need to get anything that is in the cart already.
+    // console.log(id)
+    // to fix the cart we need to get anything that is in the cart already.
     let cartContents = getLocalStorage('so-cart');
     //check to see if there was anything there
     if (!cartContents) {
@@ -76,12 +76,13 @@ function removeFromCart(id) {
 
     // console.log(cartItem)
     cartContents.splice(cartContents.indexOf(cartItem), 1);
-    console.log(cartContents)
-        // cartContents.pop()
+    // console.log(cartContents)
+    // cartContents.pop()
     setLocalStorage('so-cart', cartContents);
     getCartContents();
     addlisteners()
     displayTotal();
+    cartIconValue()
 
 }
 

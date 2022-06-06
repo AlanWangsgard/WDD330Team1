@@ -356,5 +356,14 @@ footer {
 }
 
 
-/* © 2022 GitHub,
-Inc. Terms Privacy Security Status Docs Contact GitHub Pricing API Training Blog About Loading complete */
+/* icon number */
+
+.iconNumber {
+    position: absolute;
+    color: white;
+    bottom: 17px;
+    left: 10px;
+    background-color: crimson;
+    border-radius: 50%;
+    padding: 2px;
+}

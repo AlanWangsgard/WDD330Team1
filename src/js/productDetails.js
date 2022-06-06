@@ -54,10 +54,9 @@
 
 // }
 
-import { setLocalStorage, getLocalStorage, loadHeaderFooter } from './utils.js';
+import { setLocalStorage, getLocalStorage, cartIconValue } from './utils.js';
 
 
-loadHeaderFooter();
 export default class ProductDetails {
     constructor(productId, dataSource) {
         this.productId = productId;
@@ -86,7 +85,8 @@ export default class ProductDetails {
         cart.classList.toggle("shake")
         setTimeout(function() {
             cart.classList.toggle("shake")
-        }, 5000)
+        }, 1000)
+        cartIconValue()
     }
     renderProductDetails() {
         return `<section class="product-detail"> <h3>${this.product.Brand.Name}</h3>

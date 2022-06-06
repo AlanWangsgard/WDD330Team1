@@ -75,5 +75,9 @@ export function animateCart() {
     var cart = document.querySelector(".cart");
 
     cart.addClass('shake');
-    
+
+}
+
+export function cartIconValue() {
+    document.querySelector(".iconNumber").innerHTML = getLocalStorage("so-cart").length
 }
