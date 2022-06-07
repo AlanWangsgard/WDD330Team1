@@ -79,7 +79,21 @@ export default class ProductDetails {
             cartContents = [];
         }
         // then add the current product to the list
-        cartContents.push(this.product);
+        console.log(cartContents.length)
+        if (cartContents.length == 0) {
+            if (!this.product.quantity) {
+                this.product.quantity = 1
+            }
+            cartContents.push(this.product);
+        } else {
+            var duplicate = true
+            cartContents.forEach(item => { if (!item.quantity) { item.quantity = 1 } if (item.Id == this.productId) { item.quantity += 1, duplicate = true } else { duplicate = false } });
+            console.log(duplicate);
+            if (duplicate == false) {
+                cartContents.push(this.product)
+            }
+        }
+
         setLocalStorage('so-cart', cartContents);
         var cart = document.querySelector(".cart");
         cart.classList.toggle("shake")

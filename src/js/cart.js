@@ -28,7 +28,7 @@ function displayTotal() {
 
     if (cartItems !== null) {
         for (let cartItem of cartItems) {
-            cartTotal += cartItem.FinalPrice;
+            cartTotal += cartItem.FinalPrice * cartItem.quantity;
             // console.log(cartTotal);
         }
 
@@ -54,7 +54,7 @@ function renderCartItem(item) {
     <h2 class="card__name">${item.Name}</h2>
   </a>
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: 1</p>
+  <p class="cart-card__quantity">Qty: ${item.quantity}</p>
   <p class="cart-card__price">$${item.FinalPrice}</p>
   <button id='removeFromCart' type='button' value=${item.Id}>Delete</delete>
 </li>`;
