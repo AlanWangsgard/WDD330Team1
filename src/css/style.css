@@ -367,3 +367,9 @@ footer {
     border-radius: 50%;
     padding: 2px;
 }
+
+.alert-list p {
+    margin: 0;
+    text-align: center;
+    padding: 10px 0px;
+}

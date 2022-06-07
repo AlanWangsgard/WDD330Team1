@@ -19,6 +19,9 @@ export default class ExternalServices {
         // instead we will pass the category we want in here when we need it.
         return fetch(baseURL + `products/search/${category}`)
             .then(convertToJson).then((data) => data.Result);
+        // .then(res => res.json()).then((data) => data.Result);
+
+
     }
     async findProductById(id) {
         //const products = await this.getData()
