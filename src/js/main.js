@@ -11,7 +11,7 @@ async function load() {
     let p = document.createElement("p")
     p.innerHTML = stuff.length
     p.classList.add("iconNumber")
-    icon.appendChild(p)
+    icon.prepend(p)
 }
 
 load()
