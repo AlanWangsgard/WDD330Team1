@@ -38,7 +38,6 @@ function displayTotal() {
     } else {
         document.querySelector(".cart-footer").style.display = "none";
     }
-
     return cartTotal;
 }
 
@@ -90,6 +89,7 @@ if (getLocalStorage("so-cart") != null) {
     getCartContents();
     addlisteners();
     displayTotal();
+
 
     // document.getElementById("removeFromCart").addEventListener("click", removeFromCart(document.getElementById("removeFromCart").value))
 }

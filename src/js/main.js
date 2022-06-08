@@ -1,5 +1,5 @@
 import { loadHeaderFooter } from './utils.js';
-import { getLocalStorage } from "./utils.js";
+import { getLocalStorage, cartIconValue } from "./utils.js";
 
 async function load() {
 
@@ -12,6 +12,7 @@ async function load() {
     p.innerHTML = stuff.length
     p.classList.add("iconNumber")
     icon.prepend(p)
+    cartIconValue()
 }
 
 load()

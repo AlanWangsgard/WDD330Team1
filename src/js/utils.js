@@ -79,5 +79,8 @@ export function animateCart() {
 }
 
 export function cartIconValue() {
-    document.querySelector(".iconNumber").innerHTML = getLocalStorage("so-cart").length
+    var data = getLocalStorage("so-cart")
+    var numItems = 0
+    data.forEach(item => { numItems += item.quantity });
+    document.querySelector(".iconNumber").innerHTML = numItems
 }
