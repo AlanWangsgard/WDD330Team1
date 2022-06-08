@@ -1,17 +1,31 @@
-function packageItems(items) {
+import { setLocalStorage, getLocalStorage } from './utils.js'
+import ExternalServices from './ExternalServices.js';
 
+const services = new ExternalServices();
+// function to take a form and convert a FormData object into a simple JSON object.
+// note that your form inputs must have a "name" attribute in order to show up in the FormData object.
+// this should really be moved into a utils.js module...
+function formDataToJSON(formElement) {
+    let formData = new FormData(formElement);
+    // Object.fromEntries creates a new object made from an iterable list like an Array or Map
+    // Object.entries takes an object and converts it into an Array that is iterable.
+    const converted = Object.fromEntries(formData.entries());
+    // if we have radios or checkboxes which share the same name we need to do  abit more or we will only get at most one of the checked values
+    // converted.category = formData.getAll('category');
+    return converted;
 }
 
-function formDataToJSON() {
-    var formdata = document.querySelector(".checkout-form")
-    const formData = new FormData(formdata),
-        convertedJSON = {};
-    console.log(formData)
-    formData.forEach(function(value, key) {
-        convertedJSON[key] = value;
+function packageItems(items) {
+    const simplifiedItems = items.map((item) => {
+        console.log(item);
+        return {
+            id: item.Id,
+            price: item.FinalPrice,
+            name: item.Name,
+            quantity: 1,
+        };
     });
-    console.log(convertedJSON)
-    return convertedJSON;
+    return simplifiedItems;
 }
 
 export default class CheckoutProcess {
@@ -24,7 +38,6 @@ export default class CheckoutProcess {
         this.tax = 0;
         this.orderTotal = 0;
     }
-
     init() {
         this.list = getLocalStorage(this.key);
         this.calculateItemSummary();
@@ -36,10 +49,12 @@ export default class CheckoutProcess {
         const itemNumElement = document.querySelector(
             this.outputSelector + ' #num-items'
         );
-        itemNumElement.innerText = this.list.length;
-        // calculate the total of all the items in the cart
-        const amounts = this.list.map((item) => item.FinalPrice);
+        var numItems = this.list.map((item) => item.quantity);
+        itemNumElement.innerText = numItems.reduce((sum, item) => sum + item)
+            // calculate the total of all the items in the cart
+        const amounts = this.list.map((item) => item.FinalPrice * item.quantity);
         this.itemTotal = amounts.reduce((sum, item) => sum + item);
+        this.itemTotal = this.itemTotal.toFixed(2)
         summaryElement.innerText = '$' + this.itemTotal;
     }
     calculateOrdertotal() {
@@ -76,10 +91,16 @@ export default class CheckoutProcess {
         try {
             const res = await services.checkout(json);
             console.log(res);
+            setLocalStorage('so-cart', []);
+            location.assign('/checkout/checkedout.html');
         } catch (err) {
+            // get rid of any preexisting alerts.
+            removeAllAlerts();
+            for (let message in err.message) {
+                alertMessage(err.message[message]);
+            }
+
             console.log(err);
         }
     }
-
 }
-document.querySelector("#checkoutbutton").addEventListener("click", formDataToJSON)
