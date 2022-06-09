@@ -1,5 +1,5 @@
 import { loadHeaderFooter } from './utils.js';
-import CheckoutProcess from './CheckoutProcess.js';
+import CheckoutProcess from './checkoutProcess.js';
 
 // loadHeaderFooter();
 
@@ -10,10 +10,13 @@ document.querySelector('.zip').addEventListener('blur', myCheckout.calculateOrde
 // this is how it would look if we listen for the click on the button
 document.querySelector('#checkoutbutton')
     .addEventListener('click', (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         const myForm = document.forms[0];
+        console.log(myForm)
         const chk_status = myForm.checkValidity();
-        myForm.reportValidity();
+        console.log(chk_status)
+            //         myForm.reportValidity();
         if (chk_status)
             myCheckout.checkout();
-    });
+    })
+    //     });

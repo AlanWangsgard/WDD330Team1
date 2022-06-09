@@ -6,7 +6,7 @@ function convertToJson(res) {
     if (res.ok) {
         return jsonResponse;
     } else {
-        throw { name: 'servicesError', message: errorResponse };
+        throw { name: 'servicesError', message: "error" };
     }
 }
 
@@ -40,6 +40,6 @@ export default class ExternalServices {
             },
             body: JSON.stringify(payload),
         };
-        return await fetch(baseURL + 'checkout/', options).then(convertToJson);
+        // return await fetch(baseURL + 'checkout/', options).then(convertToJson);
     }
 }
