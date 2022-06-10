@@ -1,1 +1,46 @@
-var o=(s,e,t)=>new Promise((i,c)=>{var l=r=>{try{a(t.next(r))}catch(n){c(n)}},d=r=>{try{a(t.throw(r))}catch(n){c(n)}},a=r=>r.done?i(r.value):Promise.resolve(r.value).then(l,d);a((t=t.apply(s,e)).next())});import{renderListWithTemplate as m}from"./utils.js";export default class u{constructor(e,t,i){this.category=e,this.dataSource=t,this.listElement=i}init(){return o(this,null,function*(){const e=yield this.dataSource.getData(this.category);console.log(e),this.renderList(e),document.querySelector(".title").innerHTML=this.category})}prepareTemplate(e,t){return e.querySelector("a").href+=t.Id,e.querySelector("img").src=t.Images.PrimaryMedium,e.querySelector("img").alt+=t.Name,e.querySelector(".card__brand").textContent=t.Brand.Name,e.querySelector(".card__name").textContent=t.NameWithoutBrand,e.querySelector(".product-card__price").textContent+=t.FinalPrice,e}renderList(e){this.listElement.innerHTML="";const t=document.getElementById("product-card-template");m(t,this.listElement,e,this.prepareTemplate)}}
+import { renderListWithTemplate } from './utils.js';
+
+export default class ProductList {
+    constructor(category, dataSource, listElement) {
+        // We passed in this information to make our class as reusable as possible. Being able to define these things when we use the class will make it very flexible
+        this.category = category;
+        this.dataSource = dataSource;
+        this.listElement = listElement;
+    }
+    async init() {
+        // our dataSource will return a Promise...so we can use await to resolve it.
+        const list = await this.dataSource.getData(this.category);
+        console.log("hello", list);
+        this.renderList(list);
+        //set the title to the current category
+        document.querySelector('.title').innerHTML = this.category;
+    }
+
+    prepareTemplate(template, product) {
+
+        template.querySelector('a').href += product.Id;
+        template.querySelector('img').src = product.Images.PrimaryMedium;
+        template.querySelector('img').alt += product.Name;
+        template.querySelector('.card__brand').textContent = product.Brand.Name;
+        template.querySelector('.card__name').textContent = product.NameWithoutBrand;
+        template.querySelector('.product-card__price').textContent += product.FinalPrice;
+        return template;
+    }
+    renderList(list) {
+            // make sure the list is empty
+            this.listElement.innerHTML = '';
+            //get the template
+            const template = document.getElementById('product-card-template');
+            renderListWithTemplate(template, this.listElement, list, this.prepareTemplate);
+
+        }
+        // original method before moving the template logic to utils.js
+        // renderList(list) {
+        // const template = document.getElementById('product-card-template');
+        // list.forEach(product => {
+        //   const clone = template.content.cloneNode(true);
+        //   const hydratedTemplate = this.prepareTemplate(clone, product);
+        //   this.listElement.appendChild(hydratedTemplate);
+        // })
+        // }
+}

@@ -1,1 +1,86 @@
-var s=(e,n,t)=>new Promise((o,r)=>{var c=a=>{try{l(t.next(a))}catch(d){r(d)}},i=a=>{try{l(t.throw(a))}catch(d){r(d)}},l=a=>a.done?o(a.value):Promise.resolve(a.value).then(c,i);l((t=t.apply(e,n)).next())});function u(e){if(e.ok)return e.text();throw new Error("Bad Response")}export function qs(e){return document.querySelector(e)}export function getLocalStorage(e){return JSON.parse(localStorage.getItem(e))}export function setLocalStorage(e,n){localStorage.setItem(e,JSON.stringify(n))}export function setClick(e,n){qs(e).addEventListener("touchend",t=>{t.preventDefault(),n()}),qs(e).addEventListener("click",n)}export function getParam(e){const n=window.location.search,t=new URLSearchParams(n);return t.get(e)}export function renderListWithTemplate(e,n,t,o){t.forEach(r=>{const c=e.content.cloneNode(!0),i=o(c,r);n.appendChild(i)})}export function renderWithTemplate(e,n,t,o){let r=e.content.cloneNode(!0);o&&(r=o(r,t)),n.appendChild(r)}export function loadTemplate(e){return s(this,null,function*(){const n=yield fetch(e).then(u),t=document.createElement("template");return t.innerHTML=n,t})}export function loadHeaderFooter(){return s(this,null,function*(){const e=yield loadTemplate("../partials/header.html"),n=yield loadTemplate("../partials/footer.html"),t=document.getElementById("main-header"),o=document.getElementById("main-footer");renderWithTemplate(e,t),renderWithTemplate(n,o)})}export function animateCart(){var e=document.querySelector(".cart");e.addClass("shake")}
+function convertToText(res) {
+    if (res.ok) {
+        return res.text();
+    } else {
+        throw new Error('Bad Response');
+    }
+}
+
+// wrapper for querySelector...returns matching element
+export function qs(selector) {
+    return document.querySelector(selector);
+}
+
+// retrieve data from localstorage
+export function getLocalStorage(key) {
+    return JSON.parse(localStorage.getItem(key));
+}
+// save data to local storage
+export function setLocalStorage(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
+}
+// set a listener for both touchend and click
+export function setClick(selector, callback) {
+    qs(selector).addEventListener('touchend', (event) => {
+        event.preventDefault();
+        callback();
+    });
+    qs(selector).addEventListener('click', callback);
+}
+
+export function getParam(param) {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    return urlParams.get(param);
+}
+
+export function renderListWithTemplate(template, parent, list, callback) {
+    list.forEach(item => {
+        const clone = template.content.cloneNode(true);
+        const templateWithData = callback(clone, item);
+        parent.appendChild(templateWithData);
+    })
+}
+
+export function renderWithTemplate(template, parent, data, callback) {
+
+    let clone = template.content.cloneNode(true);
+    if (callback) {
+        clone = callback(clone, data);
+
+    }
+    parent.appendChild(clone);
+
+}
+
+export async function loadTemplate(path) {
+    const html = await fetch(path).then(convertToText);
+    const template = document.createElement('template');
+    template.innerHTML = html;
+    return template;
+
+}
+
+// load the header and footer
+export async function loadHeaderFooter() {
+    const header = await loadTemplate('../partials/header.html');
+    const footer = await loadTemplate('../partials/footer.html');
+    const headerElement = document.getElementById('main-header');
+    const footerElement = document.getElementById('main-footer');
+    renderWithTemplate(header, headerElement);
+    renderWithTemplate(footer, footerElement);
+}
+
+export function animateCart() {
+    var cart = document.querySelector(".cart");
+
+    cart.addClass('shake');
+
+}
+
+export function cartIconValue() {
+    var data = getLocalStorage("so-cart")
+    var numItems = 0
+    data.forEach(item => { numItems += item.quantity });
+    document.querySelector(".iconNumber").innerHTML = numItems
+}
