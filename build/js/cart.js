@@ -1,15 +1,100 @@
-import{setLocalStorage as i}from"./utils.js";function a(e){return JSON.parse(localStorage.getItem(e))}function c(){let e="";var t=0;const r=a("so-cart"),o=r.map(s=>u(s,t++));document.querySelector(".product-list").innerHTML=o.join("")}function l(){const e=a("so-cart");let t=0;if(e!==null){for(let o of e)t+=o.FinalPrice,console.log(t);let r=`$${t.toFixed(2)}`;document.querySelector(".cart-total").innerHTML=r,document.querySelector(".cart-footer").style.display="inline"}else document.querySelector(".cart-footer").style.display="none";return t}function u(e){const t=`<li class="cart-card divider">
+import { setLocalStorage, cartIconValue } from "./utils.js";
+
+function getLocalStorage(key) {
+    return JSON.parse(localStorage.getItem(key));
+}
+
+function getCartContents() {
+    let markup = '';
+    var i = 0
+    const cartItems = getLocalStorage('so-cart');
+    const htmlItems = cartItems.map((item) => renderCartItem(item, i++));
+    document.querySelector('.product-list').innerHTML = htmlItems.join('');
+    // document.querySelector(".product-list").innerHTML = renderCartItem(cartItems);
+}
+
+// function renderCartItem(item, i) {
+//     const newItem = `<li class="cart-card divider">`
+//     let markup = "";
+//     const cartItems = getLocalStorage("so-cart");
+//     const htmlItems = cartItems.map((item) => renderCartItem(item));
+//     document.querySelector(".product-list").innerHTML = htmlItems.join("");
+//     // document.querySelector(".product-list").innerHTML = renderCartItem(cartItems);
+// }
+
+function displayTotal() {
+    const cartItems = getLocalStorage("so-cart");
+    let cartTotal = 0;
+
+    if (cartItems !== null) {
+        for (let cartItem of cartItems) {
+            cartTotal += cartItem.FinalPrice * cartItem.quantity;
+            // console.log(cartTotal);
+        }
+
+        let cartHtml = `$${cartTotal.toFixed(2)}`;
+        document.querySelector(".cart-total").innerHTML = cartHtml;
+        document.querySelector(".cart-footer").style.display = "inline";
+    } else {
+        document.querySelector(".cart-footer").style.display = "none";
+    }
+    return cartTotal;
+}
+
+function renderCartItem(item) {
+    const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
-      src="${e.Image}"
-      alt="${e.Name}"
+      src="${item.Image}"
+      alt="${item.Name}"
     />
   </a>
   <a href="#">
-    <h2 class="card__name">${e.Name}</h2>
+    <h2 class="card__name">${item.Name}</h2>
   </a>
-  <p class="cart-card__color">${e.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: 1</p>
-  <p class="cart-card__price">$${e.FinalPrice}</p>
-  <button id='removeFromCart' type='button' value=${e.Id}>Delete</delete>
-</li>`;return console.log(t),t}function d(e){console.log(e);let t=a("so-cart");t||(t=[]);var r=t.find(o=>o.Id===e);t.splice(t.indexOf(r),1),console.log(t),i("so-cart",t),c(),n(),l()}a("so-cart")!=null&&(c(),n(),l());function n(){var e=document.querySelectorAll("#removeFromCart");e.forEach(t=>t.addEventListener("click",function(){d(t.value)}))}
+  <p class="cart-card__color">${item.Colors[0].ColorName}</p>
+  <p class="cart-card__quantity">Qty: ${item.quantity}</p>
+  <p class="cart-card__price">$${item.FinalPrice}</p>
+  <button id='removeFromCart' type='button' value=${item.Id}>Delete</delete>
+</li>`;
+
+    // console.log(newItem);
+    return newItem;
+}
+
+function removeFromCart(id) {
+    // console.log(id)
+    // to fix the cart we need to get anything that is in the cart already.
+    let cartContents = getLocalStorage('so-cart');
+    //check to see if there was anything there
+    if (!cartContents) {
+        cartContents = [];
+    }
+    // then add the current product to the list
+    var cartItem = cartContents.find(item => item.Id === id)
+
+    // console.log(cartItem)
+    cartContents.splice(cartContents.indexOf(cartItem), 1);
+    // console.log(cartContents)
+    // cartContents.pop()
+    setLocalStorage('so-cart', cartContents);
+    getCartContents();
+    addlisteners()
+    displayTotal();
+    cartIconValue()
+
+}
+
+if (getLocalStorage("so-cart") != null) {
+    getCartContents();
+    addlisteners();
+    displayTotal();
+
+
+    // document.getElementById("removeFromCart").addEventListener("click", removeFromCart(document.getElementById("removeFromCart").value))
+}
+
+function addlisteners() {
+    var elements = document.querySelectorAll("#removeFromCart")
+    elements.forEach(element => element.addEventListener("click", function() { removeFromCart(element.value) }));
+}

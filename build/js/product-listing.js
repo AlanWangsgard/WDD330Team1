@@ -1,1 +1,13 @@
-import t from"./externalServices.js";import e from"./productList.js";import{loadHeaderFooter as o,getParam as r}from"./utils.js";o();const s=r("category"),c=new t,i=document.querySelector(".product-list"),n=new e(s,c,i);n.init();
+import ExternalServices from './externalServices.js';
+import ProductList from './productList.js';
+import { getParam } from './utils.js';
+
+const category = getParam('category');
+// first create an instance of our ProductData class.
+const dataSource = new ExternalServices();
+// then get the element we want the product list to render in
+const listElement = document.querySelector('.product-list');
+// then create an instance of our ProductList class and send it the correct information.
+const myList = new ProductList(category, dataSource, listElement);
+// finally call the init method to show our products
+myList.init();

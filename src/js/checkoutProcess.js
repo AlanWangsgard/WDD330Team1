@@ -1,17 +1,27 @@
-function packageItems(items) {
+import { setLocalStorage, getLocalStorage } from './utils.js'
+import ExternalServices from './ExternalServices.js';
 
+const services = new ExternalServices();
+
+function formDataToJSON(formElement) {
+    let formData = new FormData(formElement);
+
+    const converted = Object.fromEntries(formData.entries());
+
+    return converted;
 }
 
-function formDataToJSON() {
-    var formdata = document.querySelector(".checkout-form")
-    const formData = new FormData(formdata),
-        convertedJSON = {};
-    console.log(formData)
-    formData.forEach(function(value, key) {
-        convertedJSON[key] = value;
+function packageItems(items) {
+    const simplifiedItems = items.map((item) => {
+        console.log(item);
+        return {
+            id: item.Id,
+            price: item.FinalPrice,
+            name: item.Name,
+            quantity: 1,
+        };
     });
-    console.log(convertedJSON)
-    return convertedJSON;
+    return simplifiedItems;
 }
 
 export default class CheckoutProcess {
@@ -24,7 +34,6 @@ export default class CheckoutProcess {
         this.tax = 0;
         this.orderTotal = 0;
     }
-
     init() {
         this.list = getLocalStorage(this.key);
         this.calculateItemSummary();
@@ -36,10 +45,12 @@ export default class CheckoutProcess {
         const itemNumElement = document.querySelector(
             this.outputSelector + ' #num-items'
         );
-        itemNumElement.innerText = this.list.length;
-        // calculate the total of all the items in the cart
-        const amounts = this.list.map((item) => item.FinalPrice);
+        var numItems = this.list.map((item) => item.quantity);
+        itemNumElement.innerText = numItems.reduce((sum, item) => sum + item)
+            // calculate the total of all the items in the cart
+        const amounts = this.list.map((item) => item.FinalPrice * item.quantity);
         this.itemTotal = amounts.reduce((sum, item) => sum + item);
+        this.itemTotal = this.itemTotal.toFixed(2)
         summaryElement.innerText = '$' + this.itemTotal;
     }
     calculateOrdertotal() {
@@ -66,7 +77,6 @@ export default class CheckoutProcess {
         const formElement = document.forms['checkout'];
 
         const json = formDataToJSON(formElement);
-        // add totals, and item details
         json.orderDate = new Date();
         json.orderTotal = this.orderTotal;
         json.tax = this.tax;
@@ -76,10 +86,14 @@ export default class CheckoutProcess {
         try {
             const res = await services.checkout(json);
             console.log(res);
+            setLocalStorage('so-cart', []);
+            // location.assign('/checkout/checkedout.html');
         } catch (err) {
+            for (let message in err.message) {
+                console.log(err.message[message]);
+            }
+
             console.log(err);
         }
     }
-
 }
-document.querySelector("#checkoutbutton").addEventListener("click", formDataToJSON)

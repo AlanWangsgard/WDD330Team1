@@ -1,1 +1,43 @@
-var a=(n,r,t)=>new Promise((d,c)=>{var f=e=>{try{o(t.next(e))}catch(s){c(s)}},l=e=>{try{o(t.throw(e))}catch(s){c(s)}},o=e=>e.done?d(e.value):Promise.resolve(e.value).then(f,l);o((t=t.apply(n,r)).next())});const u="http://157.201.228.93:2992/";function h(n){if(n.ok)return n.json();throw new Error("Bad Response")}export default class i{constructor(){}getData(r){return fetch(u+`products/search/${r}`).then(h).then(t=>t.Result)}findProductById(r){return a(this,null,function*(){return yield fetch(u+`product/${r}`).then(h).then(t=>t.Result)})}}
+const baseURL = 'http://157.201.228.93:2992/'
+
+function convertToJson(res) {
+    var jsonResponse = res.json()
+        // var errorResponse = res.body()
+    if (res.ok) {
+        return jsonResponse;
+    } else {
+        throw { name: 'servicesError', message: jsonResponse };
+    }
+}
+
+export default class ExternalServices {
+    constructor() {
+        // this.category = category;
+        // this.path = `../json/${this.category}.json`;
+
+    }
+    getData(category) {
+        // instead we will pass the category we want in here when we need it.
+        return fetch(baseURL + `products/search/${category}`)
+            .then(convertToJson).then((data) => data.Result);
+        // .then(res => res.json()).then((data) => data.Result);
+
+
+    }
+    async findProductById(id) {
+        //const products = await this.getData()
+        //return products.find((item) => item.Id === id);
+        return await fetch(baseURL + `product/${id}`).then(convertToJson)
+            .then((data) => data.Result);
+    }
+    async checkout(payload) {
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        };
+        // return await fetch(baseURL + 'checkout/', options).then(convertToJson);
+    }
+}
