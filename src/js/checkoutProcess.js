@@ -2,16 +2,12 @@ import { setLocalStorage, getLocalStorage } from './utils.js'
 import ExternalServices from './ExternalServices.js';
 
 const services = new ExternalServices();
-// function to take a form and convert a FormData object into a simple JSON object.
-// note that your form inputs must have a "name" attribute in order to show up in the FormData object.
-// this should really be moved into a utils.js module...
+
 function formDataToJSON(formElement) {
     let formData = new FormData(formElement);
-    // Object.fromEntries creates a new object made from an iterable list like an Array or Map
-    // Object.entries takes an object and converts it into an Array that is iterable.
+
     const converted = Object.fromEntries(formData.entries());
-    // if we have radios or checkboxes which share the same name we need to do  abit more or we will only get at most one of the checked values
-    // converted.category = formData.getAll('category');
+
     return converted;
 }
 
@@ -81,7 +77,6 @@ export default class CheckoutProcess {
         const formElement = document.forms['checkout'];
 
         const json = formDataToJSON(formElement);
-        // add totals, and item details
         json.orderDate = new Date();
         json.orderTotal = this.orderTotal;
         json.tax = this.tax;
@@ -94,11 +89,9 @@ export default class CheckoutProcess {
             setLocalStorage('so-cart', []);
             // location.assign('/checkout/checkedout.html');
         } catch (err) {
-            // get rid of any preexisting alerts.
-            // removeAllAlerts();
-            // for (let message in err.message) {
-            //     alertMessage(err.message[message]);
-            // }
+            for (let message in err.message) {
+                console.log(err.message[message]);
+            }
 
             console.log(err);
         }

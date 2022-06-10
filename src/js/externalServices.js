@@ -6,13 +6,12 @@ function convertToJson(res) {
     if (res.ok) {
         return jsonResponse;
     } else {
-        throw { name: 'servicesError', message: "error" };
+        throw { name: 'servicesError', message: jsonResponse };
     }
 }
 
 export default class ExternalServices {
     constructor() {
-        //Using the API means we don't need to tie the dataSource to a specific category anymore. So we can remove this in the constructor.
         // this.category = category;
         // this.path = `../json/${this.category}.json`;
 
@@ -28,7 +27,6 @@ export default class ExternalServices {
     async findProductById(id) {
         //const products = await this.getData()
         //return products.find((item) => item.Id === id);
-        // the API allows us to pull products directly from it by ID...so we can change this method as well to take advantage of that.
         return await fetch(baseURL + `product/${id}`).then(convertToJson)
             .then((data) => data.Result);
     }
