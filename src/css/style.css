@@ -290,6 +290,23 @@ button {
     font-weight: bold;
 }
 
+#loginForm label {
+    display: block;
+    padding: 0.5em;
+}
+
+#loginForm input {
+    margin: 0.5em;
+}
+
+#loginForm button {
+    margin:1em;
+}
+
+.login h2 {
+    margin-left: 0.3em;
+}
+
 @media screen and (min-width: 500px) {
     body {
         max-width: 1080px;
