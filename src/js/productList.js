@@ -14,6 +14,7 @@ export default class ProductList {
         this.renderList(list);
         //set the title to the current category
         document.querySelector('.title').innerHTML = this.category;
+        document.querySelector('.topProduct').innerHTML = this.category;
     }
 
     prepareTemplate(template, product) {
