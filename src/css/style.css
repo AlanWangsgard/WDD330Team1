@@ -307,6 +307,37 @@ button {
     margin-left: 0.3em;
 }
 
+ul.breadcrumb {
+    padding: 10px 16px;
+    list-style: none;
+    background-color: var(--tertiary-color);
+}
+
+ul.breadcrumb li {
+    display: inline;
+    font-size: 18px;
+}
+
+ul.breadcrumb li span{
+    display: inline;
+    font-size: 18px;
+}
+
+ul.breadcrumb li+li::before {
+    color: black;
+    content: "/\00a0";
+}
+
+ul.breadcrumb li a {
+    color:azure;
+    text-decoration: none;
+}
+
+ul.breadcrumb li a:hover {
+    color:rgb(0, 46, 87);
+    text-decoration: underline;
+}
+
 @media screen and (min-width: 500px) {
     body {
         max-width: 1080px;
