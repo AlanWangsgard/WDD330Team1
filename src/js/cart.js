@@ -53,7 +53,7 @@ function renderCartItem(item) {
     <h2 class="card__name">${item.Name}</h2>
   </a>
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">Qty: ${item.quantity}</p>
+  <p class="cart-card__quantity"><span id="changeQty"> <input id="idnum" type="hidden" value="${item.Id}"><input id="add" type="button" value="+">Qty: ${item.quantity}<input id="subtract" type="button" value="-"></span</p>
   <p class="cart-card__price">$${item.FinalPrice}</p>
   <button id='removeFromCart' type='button' value=${item.Id}>Delete</delete>
 </li>`;
@@ -95,6 +95,23 @@ if (getLocalStorage("so-cart") != null) {
 }
 
 function addlisteners() {
+    // document.querySelector("#add").addEventListener("click", changeQty(id, 1))
+    // document.querySelector("#subtract").addEventListener("click", changeQty(id, -1))
+    var qtyselect = document.querySelectorAll("#changeQty")
+        // qtyselect.forEach(element => console.log(element.querySelector("#idnum").value))
+    qtyselect.forEach(element => { element.querySelector("#add").addEventListener("click", function() { changeQty(element.querySelector("#idnum").value, 1) }), element.querySelector("#subtract").addEventListener("click", function() { changeQty(element.querySelector("#idnum").value, -1) }) })
     var elements = document.querySelectorAll("#removeFromCart")
     elements.forEach(element => element.addEventListener("click", function() { removeFromCart(element.value) }));
+}
+
+function changeQty(id, num) {
+    let cartContents = getLocalStorage('so-cart');
+    var cartItem = cartContents.find(item => item.Id === id)
+    cartItem.quantity += num
+        // console.log(cartItem.quantity)
+    setLocalStorage('so-cart', cartContents);
+    getCartContents();
+    addlisteners()
+    displayTotal();
+    cartIconValue()
 }
