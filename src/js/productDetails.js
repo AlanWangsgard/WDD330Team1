@@ -70,6 +70,8 @@ export default class ProductDetails {
         // add listener to Add to Cart button
         document.getElementById('addToCart')
             .addEventListener('click', this.addToCart.bind(this));
+
+        document.querySelector(".productTitle").textContent = this.product.NameWithoutBrand;
     }
     addToCart() {
         // to fix the cart we need to get anything that is in the cart already.
