@@ -339,6 +339,27 @@ ul.breadcrumb li a:hover {
     text-decoration: underline;
 }
 
+/* newletter */
+
+section.newsletter {
+    background-color: var(--tertiary-color);
+    padding: 1em;
+}
+
+.newsInputs input {
+    display: inline;
+    margin-bottom: 1em;
+    margin-right: 2em;
+}
+
+.newsbutton input {
+    background-color: var(--primary-color);
+    padding-top: 0.25em;
+    padding-right: 1.5em;
+    padding-bottom: 0.25em;
+    padding-left: 1.5em;
+}
+
 @media screen and (min-width: 500px) {
     body {
         max-width: 1080px;
