@@ -82,10 +82,11 @@ export default class ProductDetails {
         }
         // then add the current product to the list
         console.log(cartContents.length)
+        if (!this.product.quantity) {
+            this.product.quantity = 1
+        }
         if (cartContents.length == 0) {
-            if (!this.product.quantity) {
-                this.product.quantity = 1
-            }
+
             cartContents.push(this.product);
         } else {
             var duplicate = true
