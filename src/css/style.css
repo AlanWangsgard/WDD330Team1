@@ -319,7 +319,7 @@ ul.breadcrumb li {
     font-size: 18px;
 }
 
-ul.breadcrumb li span{
+ul.breadcrumb li span {
     display: inline;
     font-size: 18px;
 }
@@ -330,12 +330,12 @@ ul.breadcrumb li+li::before {
 }
 
 ul.breadcrumb li a {
-    color:azure;
+    color: azure;
     text-decoration: none;
 }
 
 ul.breadcrumb li a:hover {
-    color:rgb(0, 46, 87);
+    color: rgb(0, 46, 87);
     text-decoration: underline;
 }
 
@@ -373,8 +373,9 @@ ul.breadcrumb li a:hover {
     padding: 0;
     border: 1px solid black;
     width: 50%;
-    
 }
+
+
 /* newletter */
 
 section.newsletter {
@@ -516,6 +517,20 @@ footer {
 #subtract {
     grid-row: 1;
     grid-column: 3;
+}
+
+.discount {
+    text-align: center;
+    background-color: red;
+    color: white;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    padding: 10px;
+    display: none;
+}
+
+.fullPrice {
+    color: crimson;
+    text-decoration: line-through;
 }
 
 
