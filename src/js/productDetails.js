@@ -66,12 +66,20 @@ export default class ProductDetails {
     }
     async init() {
         this.product = await this.dataSource.findProductById(this.productId);
+        console.log(this.product)
         document.querySelector('main').innerHTML = this.renderProductDetails();
         // add listener to Add to Cart button
         document.getElementById('addToCart')
             .addEventListener('click', this.addToCart.bind(this));
 
         document.querySelector(".productTitle").textContent = this.product.NameWithoutBrand;
+        const discount = document.querySelector(".discount")
+        const fullPrice = document.querySelector(".fullPrice")
+        if (this.product.IsClearance == true) {
+            discount.innerHTML = " " + (100 - (this.product.FinalPrice / this.product.SuggestedRetailPrice * 100)).toFixed(2) + "% Off!"
+            discount.style.display = "block"
+            fullPrice.innerHTML = " $" + this.product.SuggestedRetailPrice
+        }
     }
     addToCart() {
         // to fix the cart we need to get anything that is in the cart already.
@@ -106,14 +114,14 @@ export default class ProductDetails {
         cartIconValue()
     }
     renderProductDetails() {
-        return `<section class="product-detail"> <h3>${this.product.Brand.Name}</h3>
+        return `<section class="product-detail"><p class="discount"></p> <h3>${this.product.Brand.Name}</h3>
     <h2 class="divider">${this.product.NameWithoutBrand}</h2>
     <img
       class="divider"
       src="${this.product.Images.PrimaryLarge}"
       alt="${this.product.NameWithoutBrand}"
     />
-    <p class="product-card__price">$${this.product.FinalPrice}</p>
+    <p class="product-card__price">$${this.product.FinalPrice}<span class="fullPrice"></span></p>
     <p class="product__color">${this.product.Colors[0].ColorName}</p>
     <p class="product__description">
     ${this.product.DescriptionHtmlSimple}
