@@ -9,3 +9,9 @@ span.onclick = function() {
 window.onload = function() {
     modalScreen.style.display = "block";
 }
+
+window.onclick = function(event) {
+    if (event.target == modalScreen) {
+        modalScreen.style.display = "none";
+    }
+}
