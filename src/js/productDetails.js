@@ -80,6 +80,49 @@ export default class ProductDetails {
             discount.style.display = "block"
             fullPrice.innerHTML = " $" + this.product.SuggestedRetailPrice
         }
+        if (this.product.Colors.length > 1) {
+            // console.log(this.product.Colors)
+            const procolors = document.querySelector(".product__color")
+            const ul = document.createElement("ul")
+            ul.classList.add("previewList")
+            var i = 0
+            this.product.Colors.forEach(color => {
+                var li = document.createElement("li")
+                var span = document.createElement("span")
+                const input = document.createElement("input")
+                input.type = "hidden"
+
+                span.innerHTML = color.ColorName
+                span.classList.add("previewBox")
+                var img = document.createElement("img")
+                img.classList.add("preview")
+                img.src = color.ColorPreviewImageSrc
+                    // span.addEventListener("click", function() { console.log(color) })
+                input.value = i
+                span.append(img)
+                span.append(input)
+                li.append(span)
+                ul.append(li)
+                i += 1
+            })
+            procolors.innerHTML = ""
+            procolors.append(ul)
+        }
+        // this.addListen()
+
+    }
+    addListen() {
+        var product = this.product
+        console.log(product.Colors[0])
+        var i = 0
+        document.querySelectorAll(".previewBox").forEach(element => {
+
+            element.addEventListener("click", this.product = function() { return product.Colors[element.querySelector("input").value] })
+            i += 1
+        })
+
+
+
     }
     addToCart() {
         // to fix the cart we need to get anything that is in the cart already.

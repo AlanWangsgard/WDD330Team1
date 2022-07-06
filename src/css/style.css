@@ -533,6 +533,35 @@ footer {
     text-decoration: line-through;
 }
 
+.product-detail .preview {
+    width: 30px;
+}
+
+.preview {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.previewBox {
+    display: grid;
+    border: 1px solid black;
+    width: 70px;
+    height: 70px;
+}
+
+.previewBox:hover {
+    border: 2px solid green;
+}
+
+.previewList {
+    text-align: center;
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    /* width: 70px; */
+}
+
 
 /* .cart-card__quantity {
     display: inline;

@@ -9,7 +9,9 @@ async function load() {
 
     let icon = document.querySelector(".cart").querySelector("a")
     let p = document.createElement("p")
-    p.innerHTML = stuff.length
+    if (stuff) {
+        p.innerHTML = stuff.length
+    }
     p.classList.add("iconNumber")
     icon.prepend(p)
     cartIconValue()
