@@ -419,6 +419,20 @@ section.newsletter {
     padding-right: 20%;
 }
 
+/* Product Details Comment Box*/
+section.comment h4 {
+    font-size: 1.25em;
+}
+
+section.comment form button {
+    margin-top: 1em;
+    margin-left: 0;
+}
+
+section.comment {
+    margin-left: 10em;
+}
+
 @media screen and (min-width: 500px) {
     body {
         max-width: 1080px;
