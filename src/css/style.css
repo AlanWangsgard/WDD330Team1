@@ -398,8 +398,11 @@ section.newsletter {
     padding-left: 1.5em;
 }
 
+
 /* Sign-up Modal Form */
-.modalContent form label, input {
+
+.modalContent form label,
+input {
     margin-left: 3em;
 }
 
@@ -419,7 +422,9 @@ section.newsletter {
     padding-right: 20%;
 }
 
+
 /* Product Details Comment Box*/
+
 section.comment h4 {
     font-size: 1.25em;
 }
@@ -602,6 +607,10 @@ footer {
     margin: 0;
     padding: 0;
     /* width: 70px; */
+}
+
+.card__discount {
+    color: red;
 }
 
 

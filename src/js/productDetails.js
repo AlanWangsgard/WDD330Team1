@@ -76,7 +76,7 @@ export default class ProductDetails {
         const discount = document.querySelector(".discount")
         const fullPrice = document.querySelector(".fullPrice")
         if (this.product.IsClearance == true) {
-            discount.innerHTML = " " + (100 - (this.product.FinalPrice / this.product.SuggestedRetailPrice * 100)).toFixed(2) + "% Off!"
+            discount.innerHTML = " " + (100 - (this.product.FinalPrice / this.product.SuggestedRetailPrice * 100)).toFixed(0) + "% Off!"
             discount.style.display = "block"
             fullPrice.innerHTML = " $" + this.product.SuggestedRetailPrice
         }
