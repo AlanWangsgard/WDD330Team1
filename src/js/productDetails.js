@@ -91,7 +91,7 @@ export default class ProductDetails {
             cartContents.push(this.product);
         } else {
             var duplicate = true
-            cartContents.forEach(item => { if (!item.quantity) { item.quantity = 1 } if (item.Id == this.productId) { item.quantity += 1, duplicate = true } else { duplicate = false } });
+            cartContents.forEach(item => { if (!item.quantity) { item.quantity = 1 } if (item.Id == this.productId && item.selectedColor == this.product.selectedColor) { item.quantity += 1, duplicate = true } else { duplicate = false } });
             console.log(duplicate);
             if (duplicate == false) {
                 cartContents.push(this.product)
