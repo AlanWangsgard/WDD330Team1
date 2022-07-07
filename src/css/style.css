@@ -607,6 +607,10 @@ footer {
     color: red;
 }
 
+.cart-card__quantity {
+    margin-left: 0;
+}
+
 
 /* .cart-card__quantity {
     display: inline;

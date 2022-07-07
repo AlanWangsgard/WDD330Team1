@@ -45,14 +45,14 @@ function renderCartItem(item) {
     const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
-      src="${item.Image}"
+      src="${item.selectedColor.ColorPreviewImageSrc}"
       alt="${item.Name}"
     />
   </a>
   <a href="#">
     <h2 class="card__name">${item.Name}</h2>
   </a>
-  <p class="cart-card__color">${item.Colors[0].ColorName}</p>
+  <p class="cart-card__color">${item.selectedColor.ColorName}</p>
   <p class="cart-card__quantity"><span id="changeQty"> <input id="idnum" type="hidden" value="${item.Id}"><input id="add" type="button" value="+">Qty: ${item.quantity}<input id="subtract" type="button" value="-"></span</p>
   <p class="cart-card__price">$${item.FinalPrice}</p>
   <button id='removeFromCart' type='button' value=${item.Id}>Delete</delete>
