@@ -19,6 +19,7 @@
     </template>
     <script src="js/main.js" type="module"></script>
     <script src="js/alerts.js" type="module"></script>
+    <script src="js/modal.js" type="module"></script>
 
 </head>
 
@@ -38,6 +39,8 @@
             <p>
                 What we really need is to get outside...in fact SLEEP outside. Our mission is to provide you with everything you need to do this comfortably at an affordable price.
             </p>
+            <button class="loginPage"><a href="admin/index.html">Login</a></button>
+            <button class="registration"><a href="admin/registration.html">Register Now</a></button>
         </section>
         <section class="products">
             <ul class="product-grid">
@@ -62,6 +65,61 @@
                     </a>
                 </li>
             </ul>
+        </section>
+        <div id="theModal" class="modal">
+            <div class="modalContent">
+                <span class="close">&times;</span>
+                <h3>Become a Member Today!</h3>
+                <hr>
+                <form action="">
+                    <label for="fname">First Name:</label>
+                    <br>
+                    <input type="text">
+                    <br>
+
+                    <label for="lname">Last Name:</label>
+                    <br>
+                    <input type="text">
+                    <br>
+
+                    <label for="email">Email Address:</label>
+                    <br>
+                    <input type="email">
+                    <br>
+                    
+                    <label for="password">Password:</label>
+                    <br>
+                    <input type="password">
+                    <br>
+                    
+                    <label for="retypePass">Retype Password:</label>
+                    <br>
+                    <input type="password"> 
+                    <br> 
+                    
+                    <button>Submit</button>
+
+                </form>
+            </div>
+        </div>
+        <section class="newsletter">
+            <form action="">
+                <div class="newsTitle">
+                  <h2>Subscribe to our Newsletter for exclusive deals!</h2>
+                </div>
+              
+                <div class="newsInputs">
+                  <input type="text" placeholder="Name" name="name" required>
+                  <input type="text" placeholder="Email address" name="mail" required>
+                  <!-- <label>
+                    <input type="checkbox" checked="checked" name="subscribe"> Daily Newsletter
+                  </label> -->
+                </div>
+              
+                <div class="newsbutton">
+                  <input type="submit" value="Subscribe">
+                </div>
+              </form>
         </section>
     </main>
     <footer id="main-footer"></footer>

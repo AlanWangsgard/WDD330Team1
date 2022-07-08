@@ -1,59 +1,3 @@
-// import { setLocalStorage } from "./utils.js";
-// import { getLocalStorage } from "./utils.js";
-// export default class productDetails {
-
-//     constructor(productId, dataSource) {
-//         this.productId = productId;
-//         this.product = {};
-//         this.products = [];
-//         this.dataSource = dataSource;
-//     }
-//     async init() {
-//         // use our datasource to get the details for the current product. findProductById will return a promise! use await or .then() to process it
-//         // console.log(this.dataSource.findProductById(this.productId))
-//         this.product = await this.dataSource.findProductById(this.productId);
-//         document.querySelector("main").innerHTML = this.renderProductDetails()
-//             // once we have the product details we can render out the HTML
-//             // once the HTML is rendered we can add a listener to Add to Cart button
-//             // Notice the .bind(this). Our callback will not work if we don't include that line. Review the readings from this week on 'this' to understand why.
-//         document.getElementById('addToCart')
-//             .addEventListener('click', this.addToCart.bind(this));
-//     }
-
-//     addToCart(e) {
-//         // console.log("yeet", this.product)
-//         // console.log()
-//         if (getLocalStorage("so-cart") != null) {
-//             this.products = getLocalStorage("so-cart")
-//         }
-//         this.products.push(this.product)
-//             // const data = this.product.getData().find((item) => item.Id === e.target.dataset.id);
-//         setLocalStorage("so-cart", this.products);
-//     }
-
-//     renderProductDetails() {
-//         // const data = this.product.Name
-//         // console.log("details", this.product)
-//         return `<section class="product-detail"> <h3>${this.product.Brand.Name}</h3>
-//     <h2 class="divider">${this.product.NameWithoutBrand}</h2>
-//     <img
-//       class="divider"
-//       src="${this.product.Image}"
-//       alt="${this.product.NameWithoutBrand}"
-//     />
-//     <p class="product-card__price">$${this.product.FinalPrice}</p>
-//     <p class="product__color">${this.product.Colors[0].ColorName}</p>
-//     <p class="product__description">
-//     ${this.product.DescriptionHtmlSimple}
-//     </p>
-//     <div class="product-detail__add">
-//       <button id="addToCart" data-id="${this.product.Id}">Add to Cart</button>
-//     </div></section>`;
-//     }
-
-
-// }
-
 import { setLocalStorage, getLocalStorage, cartIconValue } from './utils.js';
 
 
@@ -66,10 +10,72 @@ export default class ProductDetails {
     }
     async init() {
         this.product = await this.dataSource.findProductById(this.productId);
+        console.log(this.product)
         document.querySelector('main').innerHTML = this.renderProductDetails();
         // add listener to Add to Cart button
         document.getElementById('addToCart')
             .addEventListener('click', this.addToCart.bind(this));
+
+        document.querySelector(".productTitle").textContent = this.product.NameWithoutBrand;
+        const discount = document.querySelector(".discount")
+        const fullPrice = document.querySelector(".fullPrice")
+        if (this.product.IsClearance == true) {
+            discount.innerHTML = " " + (100 - (this.product.FinalPrice / this.product.SuggestedRetailPrice * 100)).toFixed(0) + "% Off!"
+            discount.style.display = "block"
+            fullPrice.innerHTML = " $" + this.product.SuggestedRetailPrice
+        }
+        // if (this.product.Colors.length > 1) {
+        // console.log(this.product.Colors)
+        const procolors = document.querySelector(".product__color")
+        const ul = document.createElement("ul")
+        ul.classList.add("previewList")
+        var i = 0
+        this.product.Colors.forEach(color => {
+            var li = document.createElement("li")
+            var span = document.createElement("span")
+            const input = document.createElement("input")
+            input.type = "hidden"
+
+            span.innerHTML = color.ColorName
+            span.classList.add("previewBox")
+            var img = document.createElement("img")
+            img.classList.add("preview")
+            img.src = color.ColorPreviewImageSrc
+            input.value = color.ColorName
+            input.classList.add("colorValue")
+            span.append(img)
+            span.append(input)
+            li.append(span)
+            ul.append(li)
+            i += 1
+        })
+        procolors.innerHTML = ""
+        procolors.append(ul)
+            // }
+        this.addListen()
+        if (this.product.Images.ExtraImages.length > 0) {
+            this.createCarousel()
+        }
+        showSlide(0)
+
+    }
+    addListen() {
+        var product = this.product
+        document.querySelector(".previewBox").classList.add("selected")
+        console.log(product.Colors[0])
+        var i = 0
+        document.querySelectorAll(".previewBox").forEach(element => {
+
+            element.addEventListener("click", function() {
+                if (document.querySelector(".selected") != null) {
+                    document.querySelector(".selected").classList.remove("selected")
+                }
+                element.classList.add("selected")
+            })
+        })
+
+
+
     }
     addToCart() {
         // to fix the cart we need to get anything that is in the cart already.
@@ -78,16 +84,18 @@ export default class ProductDetails {
         if (!cartContents) {
             cartContents = [];
         }
-        // then add the current product to the list
+        this.product.selectedColor = this.product.Colors.find(colors => colors.ColorName == document.querySelector(".selected").querySelector(".colorValue").value)
+            // then add the current product to the list
         console.log(cartContents.length)
+        if (!this.product.quantity) {
+            this.product.quantity = 1
+        }
         if (cartContents.length == 0) {
-            if (!this.product.quantity) {
-                this.product.quantity = 1
-            }
+
             cartContents.push(this.product);
         } else {
             var duplicate = true
-            cartContents.forEach(item => { if (!item.quantity) { item.quantity = 1 } if (item.Id == this.productId) { item.quantity += 1, duplicate = true } else { duplicate = false } });
+            cartContents.forEach(item => { if (!item.quantity) { item.quantity = 1 } if (item.Id == this.productId && item.selectedColor == this.product.selectedColor) { item.quantity += 1, duplicate = true } else { duplicate = false } });
             console.log(duplicate);
             if (duplicate == false) {
                 cartContents.push(this.product)
@@ -103,14 +111,19 @@ export default class ProductDetails {
         cartIconValue()
     }
     renderProductDetails() {
-        return `<section class="product-detail"> <h3>${this.product.Brand.Name}</h3>
+        return `<section class="product-detail"><p class="discount"></p> <h3>${this.product.Brand.Name}</h3>
     <h2 class="divider">${this.product.NameWithoutBrand}</h2>
+    <div class="slideContainer">
+    <div class="slide activeSlide">
+    <input type="hidden" class="slidenumber" value="0">
     <img
       class="divider"
       src="${this.product.Images.PrimaryLarge}"
       alt="${this.product.NameWithoutBrand}"
     />
-    <p class="product-card__price">$${this.product.FinalPrice}</p>
+    </div>
+    </div>
+    <p class="product-card__price">$${this.product.FinalPrice}<span class="fullPrice"></span></p>
     <p class="product__color">${this.product.Colors[0].ColorName}</p>
     <p class="product__description">
     ${this.product.DescriptionHtmlSimple}
@@ -119,5 +132,74 @@ export default class ProductDetails {
       <button id="addToCart" data-id="${this.product.Id}">Add to Cart</button>
     </div></section>`;
     }
+    createCarousel() {
+        const images = this.product.Images.ExtraImages
+        var container = document.querySelector(".slideContainer")
+        container.classList.add("slidecontainer")
+        var i = 1
+        images.forEach(img => {
+            var div = document.createElement("div")
+            var input = document.createElement("input")
+            input.type = "hidden"
+            input.classList.add("slidenumber")
+            input.value = i
+            div.classList.add("slide")
+            div.style.display = "none"
+            var image = document.createElement("img")
+            image.src = img.Src
+            img.alt = img.Title
+            div.append(input)
+            div.append(image)
+            container.append(div)
+            i++
+        })
+        var prev = document.createElement("input")
+        var next = document.createElement("input")
+        prev.addEventListener("click", minusSlide)
+        next.addEventListener("click", plusSlide)
+        prev.classList.add("prev")
+        next.classList.add("next")
+        prev.type = "button"
+        next.type = "button"
+        prev.value = "<"
+        next.value = ">"
+        container.append(prev)
+        container.append(next)
+            // document.querySelector("main").append(container)
+        var slides = document.getElementsByClassName("slide")
+            // slides[0].classList.add("activeSlide")
+            // showSlide(0)
+    }
 
+}
+
+// document.querySelector(".prev").addEventListener("click", minusSlide)
+// document.querySelector(".next").addEventListener("click", plusSlide)
+
+function minusSlide() {
+    console.log("minus")
+    showSlide(-1)
+}
+
+function plusSlide() {
+    console.log("plus")
+    showSlide(1)
+}
+
+function showSlide(i) {
+    var slides = document.getElementsByClassName("slide")
+    var active = document.querySelector(".activeSlide")
+    var slideNumber = active.querySelector(".slidenumber").value
+    var newslide = parseInt(slideNumber) + i
+    if (newslide < 0) {
+        newslide = slides.length - 1
+    } else if (newslide > (slides.length - 1)) {
+        newslide = 0
+    }
+    // slides[parseInt(slideNumber)].classList.remove("")
+    // console.log(slides[parseInt(slideNumber) + i])
+    active.style.display = "none"
+    slides[newslide].style.display = "block"
+    active.classList.remove("activeSlide")
+    slides[newslide].classList.add("activeSlide")
 }

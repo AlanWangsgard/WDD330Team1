@@ -10,6 +10,7 @@
     <template id="product-card-template">
         <li class="product-card">
             <a href="../product_pages/product-details.html?product=">
+                <h2 class="card__discount"></h2>
                 <img src="" alt="Image of " />
                 <h3 class="card__brand"></h3>
                 <h2 class="card__name"></h2>
@@ -24,7 +25,23 @@
 <body>
     <header class="divider" id="main-header"></header>
     <main class="divider">
+        <div class="sortContainer">
+            <div class="filterDiv">
+                <input class="min" type="text" placeholder="0">
+                <input class="clearSort" type="button" value="Clear"><br>
+                <input class="max" type="text" placeholder="1000">
+                <input class="filterButton" type="button" value="Filter">
+            </div>
+            <div class="sortDiv">
+                <input class="sortTerm" type="text" placeholder="text">
+                <input class="sortButton" type="button" value="Sort">
+            </div>
+        </div>
         <section class="products">
+            <ul class="breadcrumb">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href=""><span class="topProduct"></span></a></li>
+            </ul>
             <h2>Top Products: <span class="title"></span></h2>
             <ul class="product-list">
                 <!-- products will go here -->

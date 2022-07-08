@@ -8,12 +8,27 @@
     <link rel="stylesheet" href="../css/style.css" />
     <script src="../js/product.js" type="module"></script>
     <script src="../js/main.js" type="module"></script>
+    <script src="../js/breadcrumb.js" type="module"></script>
 </head>
 
 <body>
+    
     <header class="divider" id="main-header"></header>
+    <ul class="breadcrumb">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="javascript:history.back()">Top Products</a></li>
+        <li><a href="#"><span class="productTitle"></span></a></li>
+        <li><a href="">Current Product <span class="divider"></span></a></li>
+    </ul>
     <main class="divider product-detail"></main>
-    <footer id="main-footer"></footer>
+    <section class="comment">
+        <h4>Leave a comment here:</h4>
+        <form action="">
+            <textarea name="comment" id="commentBox" cols="100" rows="7" placeholder="Type your comment here..."></textarea>
+            <button>Submit</button>
+        </form>
+    </section>
+    <footer id="main-footer"></footer>    
 </body>
 
 </html>
