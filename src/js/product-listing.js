@@ -11,3 +11,30 @@ const listElement = document.querySelector('.product-list');
 const myList = new ProductList(category, dataSource, listElement);
 // finally call the init method to show our products
 myList.init();
+
+function filter() {
+    var min = document.querySelector(".min").value
+    var max = document.querySelector(".max").value
+
+
+    console.log(typeof(parseFloat(max)))
+    if (isNaN(min)) {
+        min = 0
+    }
+    if (isNaN(max)) {
+        max = 1000
+    }
+    console.log
+    myList.filter(min, max)
+}
+
+function sort() {
+    var term = document.querySelector(".sortTerm").value
+    myList.sort(term)
+}
+
+document.querySelector(".sortButton").addEventListener("click", function() { sort() })
+
+document.querySelector(".filterButton").addEventListener("click", function() { filter() })
+
+document.querySelector(".clearSort").addEventListener("click", function() { myList.init() })

@@ -550,6 +550,7 @@ footer {
     background-color: gray;
     width: 20px;
     padding: 0;
+    margin: 0;
 }
 
 #changeQty {
@@ -613,7 +614,20 @@ footer {
     color: red;
 }
 
+.cart-card__quantity {
+    margin-left: 0;
+}
 
-/* .cart-card__quantity {
-    display: inline;
-} */
+.sortContainer {
+    margin: 10px;
+}
+
+.filterButton,
+.sortButton,
+.clearSort {
+    width: 75px;
+}
+
+.sortDiv {
+    margin-top: 10px;
+}
