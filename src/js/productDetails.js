@@ -53,6 +53,10 @@ export default class ProductDetails {
         procolors.append(ul)
             // }
         this.addListen()
+        if (this.product.Images.ExtraImages.length > 0) {
+            this.createCarousel()
+        }
+        showSlide(0)
 
     }
     addListen() {
@@ -109,11 +113,16 @@ export default class ProductDetails {
     renderProductDetails() {
         return `<section class="product-detail"><p class="discount"></p> <h3>${this.product.Brand.Name}</h3>
     <h2 class="divider">${this.product.NameWithoutBrand}</h2>
+    <div class="slideContainer">
+    <div class="slide activeSlide">
+    <input type="hidden" class="slidenumber" value="0">
     <img
       class="divider"
       src="${this.product.Images.PrimaryLarge}"
       alt="${this.product.NameWithoutBrand}"
     />
+    </div>
+    </div>
     <p class="product-card__price">$${this.product.FinalPrice}<span class="fullPrice"></span></p>
     <p class="product__color">${this.product.Colors[0].ColorName}</p>
     <p class="product__description">
@@ -123,5 +132,74 @@ export default class ProductDetails {
       <button id="addToCart" data-id="${this.product.Id}">Add to Cart</button>
     </div></section>`;
     }
+    createCarousel() {
+        const images = this.product.Images.ExtraImages
+        var container = document.querySelector(".slideContainer")
+        container.classList.add("slidecontainer")
+        var i = 1
+        images.forEach(img => {
+            var div = document.createElement("div")
+            var input = document.createElement("input")
+            input.type = "hidden"
+            input.classList.add("slidenumber")
+            input.value = i
+            div.classList.add("slide")
+            div.style.display = "none"
+            var image = document.createElement("img")
+            image.src = img.Src
+            img.alt = img.Title
+            div.append(input)
+            div.append(image)
+            container.append(div)
+            i++
+        })
+        var prev = document.createElement("input")
+        var next = document.createElement("input")
+        prev.addEventListener("click", minusSlide)
+        next.addEventListener("click", plusSlide)
+        prev.classList.add("prev")
+        next.classList.add("next")
+        prev.type = "button"
+        next.type = "button"
+        prev.value = "<"
+        next.value = ">"
+        container.append(prev)
+        container.append(next)
+            // document.querySelector("main").append(container)
+        var slides = document.getElementsByClassName("slide")
+            // slides[0].classList.add("activeSlide")
+            // showSlide(0)
+    }
 
+}
+
+// document.querySelector(".prev").addEventListener("click", minusSlide)
+// document.querySelector(".next").addEventListener("click", plusSlide)
+
+function minusSlide() {
+    console.log("minus")
+    showSlide(-1)
+}
+
+function plusSlide() {
+    console.log("plus")
+    showSlide(1)
+}
+
+function showSlide(i) {
+    var slides = document.getElementsByClassName("slide")
+    var active = document.querySelector(".activeSlide")
+    var slideNumber = active.querySelector(".slidenumber").value
+    var newslide = parseInt(slideNumber) + i
+    if (newslide < 0) {
+        newslide = slides.length - 1
+    } else if (newslide > (slides.length - 1)) {
+        newslide = 0
+    }
+    // slides[parseInt(slideNumber)].classList.remove("")
+    // console.log(slides[parseInt(slideNumber) + i])
+    active.style.display = "none"
+    slides[newslide].style.display = "block"
+    active.classList.remove("activeSlide")
+    slides[newslide].classList.add("activeSlide")
 }
