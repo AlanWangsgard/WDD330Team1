@@ -3,6 +3,9 @@ import ProductList from './productList.js';
 import { getParam } from './utils.js';
 
 const category = getParam('category');
+
+const productSearch = getParam('searchTerm')
+
 // first create an instance of our ProductData class.
 const dataSource = new ExternalServices();
 // then get the element we want the product list to render in
@@ -10,7 +13,12 @@ const listElement = document.querySelector('.product-list');
 // then create an instance of our ProductList class and send it the correct information.
 const myList = new ProductList(category, dataSource, listElement);
 // finally call the init method to show our products
-myList.init();
+async function search() {
+    await myList.init();
+    if (productSearch != null) {
+        myList.sort(productSearch)
+    }
+}
 
 function filter() {
     var min = document.querySelector(".min").value
@@ -24,7 +32,6 @@ function filter() {
     if (isNaN(max)) {
         max = 1000
     }
-    console.log
     myList.filter(min, max)
 }
 
@@ -32,6 +39,16 @@ function sort() {
     var term = document.querySelector(".sortTerm").value
     myList.sort(term)
 }
+
+// async function search() {
+//     await myList.init();
+//     console.log(productSearch)
+//     if (productSearch != null) {
+//         console.log(myList.list)
+//         myList.sort(productSearch)
+//     }
+// }
+search()
 
 document.querySelector(".sortButton").addEventListener("click", function() { sort() })
 
