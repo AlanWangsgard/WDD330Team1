@@ -36,3 +36,5 @@ function sort() {
 document.querySelector(".sortButton").addEventListener("click", function() { sort() })
 
 document.querySelector(".filterButton").addEventListener("click", function() { filter() })
+
+document.querySelector(".clearSort").addEventListener("click", function() { myList.init() })

@@ -612,7 +612,16 @@ footer {
     margin-left: 0;
 }
 
+.sortContainer {
+    margin: 10px;
+}
 
-/* .cart-card__quantity {
-    display: inline;
-} */
+.filterButton,
+.sortButton,
+.clearSort {
+    width: 75px;
+}
+
+.sortDiv {
+    margin-top: 10px;
+}
