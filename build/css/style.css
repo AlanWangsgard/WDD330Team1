@@ -687,3 +687,24 @@ footer {
         display: none;
     }
 }
+
+.cartCheckout {
+    text-align: center;
+    background-color: green;
+    color: white;
+    height: 50px;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-decoration: none;
+}
+
+.cartCheckout:hover {
+    text-decoration: underline;
+    color: red;
+    border: 1px solid black;
+}
+
+.cartcheckoutDiv {
+    text-align: center;
+    margin: 10px;
+}

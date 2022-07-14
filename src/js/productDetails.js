@@ -85,7 +85,6 @@ export default class ProductDetails {
             cartContents = [];
         }
         this.product.selectedColor = this.product.Colors.find(colors => colors.ColorName == document.querySelector(".selected").querySelector(".colorValue").value)
-            // then add the current product to the list
         console.log(cartContents.length)
         if (!this.product.quantity) {
             this.product.quantity = 1
@@ -95,7 +94,7 @@ export default class ProductDetails {
             cartContents.push(this.product);
         } else {
             var duplicate = true
-            cartContents.forEach(item => { if (!item.quantity) { item.quantity = 1 } if (item.Id == this.productId && item.selectedColor == this.product.selectedColor) { item.quantity += 1, duplicate = true } else { duplicate = false } });
+            cartContents.forEach(item => { if (!item.quantity) { item.quantity = 1 } if (item.Id == this.productId && item.selectedColor.ColorName == this.product.selectedColor.ColorName) { item.quantity += 1, duplicate = true } else { duplicate = false } });
             console.log(duplicate);
             if (duplicate == false) {
                 cartContents.push(this.product)

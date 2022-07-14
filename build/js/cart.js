@@ -8,7 +8,7 @@ function getCartContents() {
     let markup = '';
     var i = 0
     const cartItems = getLocalStorage('so-cart');
-    const htmlItems = cartItems.map((item) => renderCartItem(item, i++));
+    const htmlItems = cartItems.map((item) => renderCartItem(item));
     document.querySelector('.product-list').innerHTML = htmlItems.join('');
     // document.querySelector(".product-list").innerHTML = renderCartItem(cartItems);
 }
