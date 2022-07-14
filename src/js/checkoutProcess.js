@@ -74,26 +74,28 @@ export default class CheckoutProcess {
         orderTotal.innerText = '$' + this.orderTotal;
     }
     async checkout() {
-        const formElement = document.forms['checkout'];
+        const formElement = document.querySelector('.checkout-form');
 
         const json = formDataToJSON(formElement);
+        console.log(json)
         json.orderDate = new Date();
         json.orderTotal = this.orderTotal;
         json.tax = this.tax;
         json.shipping = this.shipping;
         json.items = packageItems(this.list);
         console.log(json);
-        try {
-            const res = await services.checkout(json);
-            console.log(res);
-            setLocalStorage('so-cart', []);
-            // location.assign('/checkout/checkedout.html');
-        } catch (err) {
-            for (let message in err.message) {
-                console.log(err.message[message]);
-            }
+        // try {
+        const res = await services.checkout(json);
+        console.log(res);
+        setLocalStorage('so-cart', []);
+        loc
+        console.log(services.getOrders())
+        location.assign('/checkout/checkedout.html');
+        // } catch (err) {
+        //     for (let message in err.message) {
+        //         console.log(err.message[message]);
+        //     }
 
-            console.log(err);
-        }
+        // console.log(err);
     }
 }
