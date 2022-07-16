@@ -15,6 +15,8 @@ export default class ProductDetails {
         // add listener to Add to Cart button
         document.getElementById('addToCart')
             .addEventListener('click', this.addToCart.bind(this));
+        document.getElementById('addToWishList')
+            .addEventListener('click', this.addToWishList.bind(this));
 
         document.querySelector(".productTitle").textContent = this.product.NameWithoutBrand;
         const discount = document.querySelector(".discount")
@@ -109,6 +111,32 @@ export default class ProductDetails {
         }, 1000)
         cartIconValue()
     }
+    addToWishList() {
+        // to fix the cart we need to get anything that is in the cart already.
+        let cartContents = getLocalStorage('wish-list');
+        //check to see if there was anything there
+        if (!cartContents) {
+            cartContents = [];
+        }
+        this.product.selectedColor = this.product.Colors.find(colors => colors.ColorName == document.querySelector(".selected").querySelector(".colorValue").value)
+        console.log(cartContents.length)
+        if (!this.product.quantity) {
+            this.product.quantity = 1
+        }
+        if (cartContents.length == 0) {
+
+            cartContents.push(this.product);
+        } else {
+            var duplicate = true
+            cartContents.forEach(item => { if (!item.quantity) { item.quantity = 1 } if (item.Id == this.productId && item.selectedColor.ColorName == this.product.selectedColor.ColorName) { item.quantity += 1, duplicate = true } else { duplicate = false } });
+            console.log(duplicate);
+            if (duplicate == false) {
+                cartContents.push(this.product)
+            }
+        }
+
+        setLocalStorage('wish-list', cartContents);
+    }
     renderProductDetails() {
         return `<section class="product-detail"><p class="discount"></p> <h3>${this.product.Brand.Name}</h3>
     <h2 class="divider">${this.product.NameWithoutBrand}</h2>
@@ -129,6 +157,7 @@ export default class ProductDetails {
     </p>
     <div class="product-detail__add">
       <button id="addToCart" data-id="${this.product.Id}">Add to Cart</button>
+      <button id="addToWishList" data-id="${this.product.Id}">Add To Wish List</button>
     </div></section>`;
     }
     createCarousel() {
