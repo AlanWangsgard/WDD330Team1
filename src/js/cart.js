@@ -13,14 +13,6 @@ function getCartContents() {
     // document.querySelector(".product-list").innerHTML = renderCartItem(cartItems);
 }
 
-// function renderCartItem(item, i) {
-//     const newItem = `<li class="cart-card divider">`
-//     let markup = "";
-//     const cartItems = getLocalStorage("so-cart");
-//     const htmlItems = cartItems.map((item) => renderCartItem(item));
-//     document.querySelector(".product-list").innerHTML = htmlItems.join("");
-//     // document.querySelector(".product-list").innerHTML = renderCartItem(cartItems);
-// }
 
 function displayTotal() {
     const cartItems = getLocalStorage("so-cart");
@@ -64,14 +56,10 @@ function renderCartItem(item) {
 
 function removeFromCart(id) {
     // console.log(id)
-    // to fix the cart we need to get anything that is in the cart already.
     let cartContents = getLocalStorage('so-cart');
-    //check to see if there was anything there
     if (!cartContents) {
         cartContents = [];
     }
-    // then add the current product to the list
-    var cartItem = cartContents.find(item => item.Id === id)
 
     // console.log(cartItem)
     cartContents.splice(cartContents.indexOf(cartItem), 1);
