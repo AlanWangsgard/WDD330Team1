@@ -28,6 +28,8 @@ export default class ProductList {
         template.querySelector('.card__brand').textContent = product.Brand.Name;
         template.querySelector('.card__name').textContent = product.NameWithoutBrand;
         template.querySelector('.product-card__price').textContent += product.FinalPrice;
+        template.querySelector('.brand').textContent = product.Brand.Name;
+        template.querySelector('.product').textContent = product.NameWithoutBrand;
         if (product.IsClearance == true) {
             template.querySelector('.card__discount').textContent = (100 - (product.FinalPrice / product.SuggestedRetailPrice * 100)).toFixed(0) + "% off!"
         }
