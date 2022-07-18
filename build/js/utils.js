@@ -6,20 +6,14 @@ function convertToText(res) {
     }
 }
 
-// wrapper for querySelector...returns matching element
-export function qs(selector) {
-    return document.querySelector(selector);
-}
 
-// retrieve data from localstorage
+
 export function getLocalStorage(key) {
     return JSON.parse(localStorage.getItem(key));
 }
-// save data to local storage
 export function setLocalStorage(key, data) {
     localStorage.setItem(key, JSON.stringify(data));
 }
-// set a listener for both touchend and click
 export function setClick(selector, callback) {
     qs(selector).addEventListener('touchend', (event) => {
         event.preventDefault();
@@ -61,7 +55,6 @@ export async function loadTemplate(path) {
 
 }
 
-// load the header and footer
 export async function loadHeaderFooter() {
     const header = await loadTemplate('../partials/header.html');
     const footer = await loadTemplate('../partials/footer.html');
@@ -81,6 +74,8 @@ export function animateCart() {
 export function cartIconValue() {
     var data = getLocalStorage("so-cart")
     var numItems = 0
-    data.forEach(item => { numItems += item.quantity });
-    document.querySelector(".iconNumber").innerHTML = numItems
+    if (data != null) {
+        data.forEach(item => { numItems += item.quantity });
+        document.querySelector(".iconNumber").innerHTML = numItems
+    }
 }

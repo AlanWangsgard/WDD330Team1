@@ -708,3 +708,13 @@ footer {
     text-align: center;
     margin: 10px;
 }
+
+.wish,
+#addToWishList {
+    margin-top: 30px;
+}
+
+button:hover {
+    border: 1px solid black;
+    background-color: lightgreen;
+}

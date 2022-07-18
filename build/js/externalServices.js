@@ -17,7 +17,6 @@ export default class ExternalServices {
 
     }
     getData(category) {
-        // instead we will pass the category we want in here when we need it.
         return fetch(baseURL + `products/search/${category}`)
             .then(convertToJson).then((data) => data.Result);
         // .then(res => res.json()).then((data) => data.Result);
@@ -41,23 +40,19 @@ export default class ExternalServices {
         return await fetch(baseURL + 'checkout/', options).then(convertToJson);
     }
     async loginRequest(user) {
-            const options = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(user)
-            }
-            const response = await fetch(baseURL + 'login', options).then(convertToJson);
-            return response.accessToken;
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
         }
-        // make a request to the server for the current orders
-        // requires: a valid token
-        // returns: a list of orders
+        const response = await fetch(baseURL + 'login', options).then(convertToJson);
+        return response.accessToken;
+    }
     async getOrders(token) {
         const options = {
             method: 'GET',
-            // the server will reject our request if we don't include the Authorization header with a valid token!
             headers: {
                 'Authorization': `Bearer ${token}`
             }
