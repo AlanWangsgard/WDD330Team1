@@ -25,6 +25,7 @@
     </template>
     <script src="../js/product-listing.js" type="module"></script>
     <script src="../js/main.js" type="module"></script>
+    <script src="../js/product.js" type="module"></script>
     
 </head>
 
@@ -55,37 +56,30 @@
             <div id="theModal" class="modal">
                 <div class="modalContent">
                     <span class="close">&times;</span>
-                    <h3>Become a Member Today!</h3>
-                    <hr>
-                    <form action="">
-                        <label for="fname">First Name:</label>
-                        <br>
-                        <input type="text">
-                        <br>
-    
-                        <label for="lname">Last Name:</label>
-                        <br>
-                        <input type="text">
-                        <br>
-    
-                        <label for="email">Email Address:</label>
-                        <br>
-                        <input type="email">
-                        <br>
-                        
-                        <label for="password">Password:</label>
-                        <br>
-                        <input type="password">
-                        <br>
-                        
-                        <label for="retypePass">Retype Password:</label>
-                        <br>
-                        <input type="password"> 
-                        <br> 
-                        
-                        <button>Submit</button>
-    
-                    </form>
+                    
+                    <p class="brand"></p>
+                    <p class="product"></p>
+                    <p class="price"></p>
+                    <p class="description"></p>
+
+                    <section class="product-detail"><p class="discount"></p> <h3>Brand Name</h3>
+                        <h2 class="divider">Product Name</h2>
+                        <div class="slideContainer slidecontainer">
+                        <div class="slide activeSlide" style="display: block;">
+                        <input type="hidden" class="slidenumber" value="0">
+                        <img class="divider" src="//brothert.net/images/sleepoutside/marmot-30-f-mavericks-double-wide-sleeping-bag-square-in-golden-copper-dark-olive~p~21kmf_01~320.jpg" alt="30°F Mavericks Double Wide Sleeping Bag - Square">
+                        </div>
+                        <div class="slide" style="display: none;"><input type="hidden" class="slidenumber" value="1"><img src="//brothert.net/images/sleepoutside/marmot-30-f-mavericks-double-wide-sleeping-bag-square~a~21kmf_2~600.1.jpg"></div><input class="prev" type="button" value="<"><input class="next" type="button" value=">"></div>
+                        <p class="product-card__price">$0.00 Product Price<span class="fullPrice"></span></p>
+                        <p class="product__color"><ul class="previewList"><li><span class="previewBox selected">Golden Copper/Dark Olive<img class="preview" src="//brothert.net/images/sleepoutside/marmot-30-f-mavericks-double-wide-sleeping-bag-square-in-golden-copper-dark-olive~p~21kmf_01~160.jpg"><input type="hidden" value="Golden Copper/Dark Olive" class="colorValue"></span></li></ul></p>
+                        <p class="product__description">
+                        <strong><a class="glossaryTermLink" href="/closeout~g~3281" title="Closeout: - Closeout indicates an item may be last year's model or color. While closeout items are often offered at discounted prices, the products themselves are always high quality. Closeout items can include anything from shoes, underwear and apparel, to rugs, tents and outdoor equipment. Closeouts are often a high percentage off the retail price.">Closeout</a></strong>This is the product description.....
+                        </p>
+                        <div class="product-detail__add">
+                        <button id="addToCart" data-id="21KMF">Add to Cart</button>
+                          
+                        </div></section>
+                    
                 </div>
             </div>
         </section>
